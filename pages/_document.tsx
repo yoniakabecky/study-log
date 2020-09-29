@@ -8,7 +8,8 @@ import Document, {
 } from "next/document";
 import { ServerStyleSheet } from "styled-components";
 
-import theme from "../styles/theme";
+import theme from "@@/styles/theme";
+
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const styledComponentSheet = new ServerStyleSheet();

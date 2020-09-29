@@ -4,7 +4,7 @@ import { AppProps } from "next/app";
 import Head from "next/head";
 import React from "react";
 
-import theme from "../styles/theme";
+import theme from "@@/styles/theme";
 
 export default function MyApp(props: AppProps) {
   const { Component, pageProps } = props;

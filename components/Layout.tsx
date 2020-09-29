@@ -10,6 +10,7 @@ export default function Layout({ children }: Props): ReactElement {
   return (
     <>
       <Navbar />
+
       <main>{children}</main>
     </>
   );
