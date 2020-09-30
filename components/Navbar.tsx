@@ -3,9 +3,10 @@ import AppBar from "@material-ui/core/AppBar";
 import Container from "@material-ui/core/Container";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Link from "next/link";
 import React, { ReactElement } from "react";
-import styled from "styled-components";
+
+import Link from "@@/components/NonDecorationLink";
+import { HOME } from "@@/Routes";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -22,18 +23,11 @@ export default function Navbar(): ReactElement {
     <AppBar position="static">
       <Container maxWidth="lg">
         <Toolbar className={classes.toolbar}>
-          <Link href="/">
-            <Anchor>
-              <Typography variant="h6">Yoni's Study Log</Typography>
-            </Anchor>
+          <Link href={HOME}>
+            <Typography variant="h6">Yoni's Study Log</Typography>
           </Link>
         </Toolbar>
       </Container>
     </AppBar>
   );
 }
-
-const Anchor = styled.a`
-  text-decoration: none;
-  cursor: pointer;
-`;
