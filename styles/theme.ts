@@ -14,6 +14,11 @@ const theme = createMuiTheme({
       main: red.A400,
     },
   },
+  typography: {
+    h2: {
+      marginTop: "1.5rem",
+    },
+  },
 });
 
 export default theme;

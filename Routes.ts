@@ -2,12 +2,12 @@ export const HOME = "/";
 
 export const ALGORITHMS = "/algorithms";
 
-export const SORT = "/algorithms/sort";
-export const BUBBLE = "/algorithms/sort/bubble";
+export const SORTING = "/algorithms/sorting";
+export const BUBBLE = "/algorithms/sorting/bubble";
 
 export const breadcrumbNameMap: { [key: string]: string } = {
-  HOME: "Home",
-  ALGORITHMS: "Algorithms",
-  SORT: "Sort",
-  BUBBLE: "Bubble",
+  "/": "Home",
+  "/algorithms": "Algorithms",
+  "/algorithms/sorting": "Sorting",
+  "/algorithms/sorting/bubble": "Bubble",
 };

@@ -5,6 +5,7 @@ import Paper from "@material-ui/core/Paper";
 import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
 
+import bubbleSort, { sampleCode } from "@@/algorithms/bubbleSort";
 import Layout from "@@/components/Layout";
 import LinkedBreadcrumbs from "@@/components/LinkedBreadcrumbs";
 
@@ -27,7 +28,7 @@ export default function BubbleSortPage({}: Props): ReactElement {
               There are two nested loops in (the standard) Bubble Sort.
             </Typography>
 
-            <Typography variant="body1">
+            <Typography variant="body1" gutterBottom>
               The outer loop runs for exactly N iterations. But the inner loop
               runs get shorter and shorter:
             </Typography>
@@ -42,17 +43,28 @@ export default function BubbleSortPage({}: Props): ReactElement {
               <li>When i=(N−1), 0 iteration.</li>
             </ol>
 
-            <Typography variant="body1">
-              Thus, the total number of iterations = (N−1)+(N−2)+...+1+0 =
-              N*(N−1)/2 (derivation).
+            <Typography variant="body1" gutterBottom>
+              Thus,
               <br />
-              Total time = c*N*(N−1)/2 = O(N^2).
+              <code>
+                the total number of iterations = (N−1)+(N−2)+...+1+0 = N*(N−1)/2{" "}
+              </code>
+              <br />
+              <code>Total time = c*N*(N−1)/2 = O(N^2)</code>
+            </Typography>
+
+            <Typography variant="body2" gutterBottom>
+              The improvement idea is simple: If we go through the inner loop
+              with no swapping at all, it means that the array is already sorted
+              and we can stop Bubble Sort at that point.
             </Typography>
           </Grid>
 
           <Grid item xs={12} sm={6}>
-            <Paper>
-              <code>sorting algorithm</code>
+            <Paper style={{ padding: "0.5rem 1rem" }}>
+              <pre>
+                <code>{sampleCode}</code>
+              </pre>
             </Paper>
           </Grid>
         </Grid>

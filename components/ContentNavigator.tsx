@@ -16,7 +16,7 @@ export default function ContentNavigator({}: Props): ReactElement {
       defaultExpandIcon={<ArrowRightIcon />}
     >
       <TreeItem nodeId="1" label="Algorithms">
-        <TreeItem nodeId="2" label="Sort">
+        <TreeItem nodeId="2" label="Sorting">
           <Link href={BUBBLE}>
             <TreeItem nodeId="3" label="Bubble Sort" />
           </Link>
