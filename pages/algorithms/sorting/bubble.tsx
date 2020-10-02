@@ -5,7 +5,7 @@ import Paper from "@material-ui/core/Paper";
 import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
 
-import bubbleSort, { sampleCode } from "@@/algorithms/bubbleSort";
+import { sampleCode } from "@@/algorithms/bubbleSort";
 import Layout from "@@/components/Layout";
 import LinkedBreadcrumbs from "@@/components/LinkedBreadcrumbs";
 
