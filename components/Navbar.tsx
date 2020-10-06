@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import React, { ReactElement } from "react";
 
 import Link from "@@/components/NonDecorationLink";
-import { HOME } from "@@/Routes";
+import { HOME } from "@@/renameRoutes";
 
 const useStyles = makeStyles(() =>
   createStyles({

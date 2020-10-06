@@ -4,7 +4,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import React, { ReactElement } from "react";
 
 import Link from "@@/components/NonDecorationLink";
-import { breadcrumbNameMap } from "@@/Routes";
+import { breadcrumbNameMap } from "@@/renameRoutes";
 
 interface Props {
   pathname: String;
