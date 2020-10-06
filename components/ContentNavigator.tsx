@@ -5,7 +5,7 @@ import TreeItem from "@material-ui/lab/TreeItem";
 import React, { ReactElement } from "react";
 
 import Link from "@@/components/NonDecorationLink";
-import { BUBBLE, SELECTION } from "@@/renameRoutes";
+import { BUBBLE, SELECTION } from "@@/routes";
 
 interface Props {}
 
