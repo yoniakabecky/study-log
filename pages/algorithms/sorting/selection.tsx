@@ -1,10 +1,10 @@
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
 import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
 
-import { sampleCode } from "@@/algorithms/selectionSort";
+import CodeImg from "@@/components/CodeImg";
 import Layout from "@@/components/Layout";
 import LinkedBreadcrumbs from "@@/components/LinkedBreadcrumbs";
 
@@ -45,11 +45,8 @@ export default function SelectionSortPage({}: Props): ReactElement {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <Paper style={{ padding: "0.5rem 1rem" }}>
-            {/* {selectionSort([29, 10, 14, 37, 13])} */}
-            <pre>
-              <code>{sampleCode}</code>
-            </pre>
+          <Paper>
+            <CodeImg src="/assets/selectionCode.png" alt="code" />
           </Paper>
         </Grid>
       </Grid>

@@ -1,10 +1,10 @@
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
 import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
 
-import { sampleCode } from "@@/algorithms/bubbleSort";
+import CodeImg from "@@/components/CodeImg";
 import Layout from "@@/components/Layout";
 import LinkedBreadcrumbs from "@@/components/LinkedBreadcrumbs";
 
@@ -20,6 +20,7 @@ export default function BubbleSortPage({}: Props): ReactElement {
       <Typography variant="h2" component="h1" gutterBottom>
         Bubble Sort
       </Typography>
+
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <Typography variant="body1" gutterBottom>
@@ -59,10 +60,8 @@ export default function BubbleSortPage({}: Props): ReactElement {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <Paper style={{ padding: "0.5rem 1rem" }}>
-            <pre>
-              <code>{sampleCode}</code>
-            </pre>
+          <Paper>
+            <CodeImg src="/assets/bubbleCode.png" alt="code" />
           </Paper>
         </Grid>
       </Grid>
