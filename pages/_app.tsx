@@ -31,6 +31,10 @@ export default function MyApp(props: AppProps) {
   );
 
   React.useEffect(() => {
+    setPrefersDarkMode(preference);
+  }, [preference]);
+
+  React.useEffect(() => {
     const jssStyles = document.querySelector("#jss-server-side");
     if (jssStyles) {
       jssStyles.parentElement!.removeChild(jssStyles);
