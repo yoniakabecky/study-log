@@ -7,10 +7,12 @@ import React, { ReactElement } from "react";
 import CodeImg from "@@/components/CodeImg";
 import Layout from "@@/components/Layout";
 import LinkedBreadcrumbs from "@@/components/LinkedBreadcrumbs";
+import { getClient } from "@@/lib/contentful";
+import marked from "@@/lib/marked";
+import { IAlgorithmPostFields } from "@@/interfaces/post";
 
-interface Props {}
 
-export default function SelectionSortPage({}: Props): ReactElement {
+export default function SelectionSortPage({ title, body, image }: IAlgorithmPostFields): ReactElement {
   const pathname = useRouter()?.pathname;
 
   return (
@@ -18,38 +20,42 @@ export default function SelectionSortPage({}: Props): ReactElement {
       <LinkedBreadcrumbs pathname={pathname} />
 
       <Typography variant="h2" component="h1" gutterBottom>
-        Selection Sort
+        {title}
       </Typography>
 
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
-          <Typography variant="body1" gutterBottom>
-            Given an array of N items and L = 0, Selection Sort will:
-          </Typography>
-
-          <ol>
-            <li>
-              Find the position X of the smallest item in the range of
-              [L...N−1],
-            </li>
-            <li>Swap X-th item with the L-th item,</li>
-            <li>
-              Increase the lower-bound L by 1 and repeat Step 1 until L = N-2.
-            </li>
-          </ol>
-
-          <Typography variant="body1" gutterBottom>
-            Total: <code>O(N2)</code> — To be precise, it is similar to Bubble
-            Sort analysis.
-          </Typography>
+          <div dangerouslySetInnerHTML={{ __html: marked(body) }} />
         </Grid>
 
         <Grid item xs={12} sm={6}>
           <Paper>
-            <CodeImg src="/assets/selectionCode.png" alt="code" />
+            <CodeImg src={image.fields?.file.url} alt="code" />
           </Paper>
         </Grid>
       </Grid>
     </Layout>
   );
+}
+
+export const getStaticProps = async (): Promise<any> => {
+  const entries = await getClient(true).getEntries<any>({
+    content_type: "algorithms",
+    include: 1,
+    "fields.slug": "/sorting/selection"
+  })
+
+  const extractEntry = entries?.items;
+
+  return {
+    props: {
+      title: extractEntry[0].fields.title,
+      slug: extractEntry[0].fields.slug,
+      body: extractEntry[0].fields.contentMd,
+      image: extractEntry[0].fields.code,
+      tags: extractEntry[0].fields.tags,
+      createdAt: extractEntry[0].sys.createdAt,
+      lastModifiedAt: extractEntry[0].sys.updatedAt,
+    }
+  };
 }

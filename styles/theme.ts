@@ -2,6 +2,15 @@ import { red, grey, purple, lime, lightBlue } from "@material-ui/core/colors";
 import { createMuiTheme } from "@material-ui/core/styles";
 
 const common = {
+  overrides: {
+    MuiCssBaseline: {
+      '@global': {
+        a: {
+          color: "inherit"
+        }
+      }
+    }
+  },
   typography: {
     h2: {
       marginTop: "1.5rem",
