@@ -1,9 +1,13 @@
-# Study Log
+# Study Log 👩‍💻
 
-This is a project to keep my study organized.
+This is a project to keep my study organized.  
+[Jump to the page](https://study-log.vercel.app/)
 
-## Study Plan
+## Study Plan 📚
 
+- Language and libraries
+  - Next.js
+  - Typescript
 - Algorism
   - Sorting
     - [ ] Bubble Sort
@@ -12,11 +16,19 @@ This is a project to keep my study organized.
 - Testing
   - [ ] Jest
 
-## Code Base
+
+## Tech Stack 🔧
+
+- [Next.js](https://github.com/vercel/next.js)
+- [Material-UI](https://github.com/mui-org/material-ui)
+- [Styled-Components](https://github.com/styled-components/styled-components)
+- [Contentful](https://www.contentful.com/)
+
+## Code Base 💻
 
 - [TypeScript & Styled Components Next.js](https://github.com/vercel/next.js/tree/canary/examples/with-typescript-styled-components)
 - [Material-Ui with Next.js](https://github.com/mui-org/material-ui/tree/next/examples/nextjs-with-typescript)
 
-## Refs
+## Refs 
 
 - Algorism: [VisuAlgo](https://visualgo.net/en)
