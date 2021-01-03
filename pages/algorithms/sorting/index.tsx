@@ -1,15 +1,17 @@
-import Typography from "@material-ui/core/Typography";
 import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
 
+import Grid from '@material-ui/core/Grid';
+import Typography from "@material-ui/core/Typography";
+
 import Layout from "@@/components/Layout";
 import LinkedBreadcrumbs from "@@/components/LinkedBreadcrumbs";
-import Link from "@@/components/NonDecorationLink";
 import { BUBBLE, SELECTION } from "@@/routes";
+import ArticleIndexCard from "@@/components/ArticleIndexCard";
 
-interface Props {}
+interface Props { }
 
-export default function SortingPage({}: Props): ReactElement {
+export default function SortingPage({ }: Props): ReactElement {
   const pathname = useRouter()?.pathname;
 
   return (
@@ -20,14 +22,15 @@ export default function SortingPage({}: Props): ReactElement {
         Sorting
       </Typography>
 
-      <ul>
-        <li>
-          <Link href={BUBBLE}>Bubble Sort</Link>
-        </li>
-        <li>
-          <Link href={SELECTION}>Selection Sort</Link>
-        </li>
-      </ul>
+      <Grid container spacing={4}>
+        <Grid item >
+          <ArticleIndexCard title="Bubble Sort" image="/assets/bubbleCode.png" href={BUBBLE} />
+        </Grid>
+
+        <Grid item>
+          <ArticleIndexCard title="Selection Sort" image="/assets/selectionCode.png" href={SELECTION} />
+        </Grid>
+      </Grid>
     </Layout>
   );
 }

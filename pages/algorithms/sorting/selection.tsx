@@ -7,12 +7,15 @@ import React, { ReactElement } from "react";
 import CodeImg from "@@/components/CodeImg";
 import Layout from "@@/components/Layout";
 import LinkedBreadcrumbs from "@@/components/LinkedBreadcrumbs";
-import { getClient } from "@@/lib/contentful";
+import { getAlgorithmsPost } from "@@/lib/contentful";
 import marked from "@@/lib/marked";
 import { IAlgorithmPostFields } from "@@/interfaces/post";
 
-
-export default function SelectionSortPage({ title, body, image }: IAlgorithmPostFields): ReactElement {
+export default function SelectionSortPage({
+  title,
+  body,
+  image,
+}: IAlgorithmPostFields): ReactElement {
   const pathname = useRouter()?.pathname;
 
   return (
@@ -39,23 +42,9 @@ export default function SelectionSortPage({ title, body, image }: IAlgorithmPost
 }
 
 export const getStaticProps = async (): Promise<any> => {
-  const entries = await getClient(true).getEntries<any>({
-    content_type: "algorithms",
-    include: 1,
-    "fields.slug": "/sorting/selection"
-  })
-
-  const extractEntry = entries?.items;
+  const post = await getAlgorithmsPost(true, "/sorting/selection");
 
   return {
-    props: {
-      title: extractEntry[0].fields.title,
-      slug: extractEntry[0].fields.slug,
-      body: extractEntry[0].fields.contentMd,
-      image: extractEntry[0].fields.code,
-      tags: extractEntry[0].fields.tags,
-      createdAt: extractEntry[0].sys.createdAt,
-      lastModifiedAt: extractEntry[0].sys.updatedAt,
-    }
+    props: post,
   };
-}
+};
