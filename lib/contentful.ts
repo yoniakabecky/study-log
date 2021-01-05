@@ -21,15 +21,15 @@ export const getAlgorithmsPost = async (preview: boolean, slug: string) => {
     "fields.slug": slug,
   });
 
-  const extractEntry = entries?.items;
+  const { fields, sys } = entries?.items[0];
 
   return {
-    title: extractEntry[0].fields.title,
-    slug: extractEntry[0].fields.slug,
-    body: extractEntry[0].fields.contentMd,
-    image: extractEntry[0].fields.code,
-    tags: extractEntry[0].fields.tags,
-    createdAt: extractEntry[0].sys.createdAt,
-    lastModifiedAt: extractEntry[0].sys.updatedAt,
+    title: fields.title,
+    slug: fields.slug,
+    body: fields.contentMd,
+    image: fields.code,
+    tags: fields.tags,
+    createdAt: sys.createdAt,
+    lastModifiedAt: sys.updatedAt,
   };
 };
