@@ -1,6 +1,7 @@
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { ReactElement } from "react";
+import { Droppable } from "react-beautiful-dnd";
 
 import { IColumn, ITask } from "@@/interfaces/draggable";
 import Task from "./Task";
@@ -29,11 +30,20 @@ export default function Column({ column, tasks }: Props): ReactElement {
         {column.title}
       </Typography>
 
-      <div className={classes.taskList}>
-        {tasks.map((task) => (
-          <Task key={task.id} task={task} />
-        ))}
-      </div>
+      <Droppable droppableId={column.id}>
+        {(provided) => (
+          <div
+            className={classes.taskList}
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+          >
+            {tasks.map((task, index) => (
+              <Task key={task.id} task={task} index={index} />
+            ))}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import Typography from "@material-ui/core/Typography";
 import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
 
 import Column from "@@/components/DraggablePage/Column";
 import Layout from "@@/components/Layout";
@@ -14,6 +15,11 @@ interface Props {
 export default function draggable({ todos = initData }: Props): ReactElement {
   const pathname = useRouter()?.pathname;
 
+  const onDargEnd = (result: DropResult) => {
+    console.log(result);
+    // TODO: reorder column
+  };
+
   return (
     <Layout>
       <LinkedBreadcrumbs pathname={pathname} />
@@ -22,12 +28,14 @@ export default function draggable({ todos = initData }: Props): ReactElement {
         Draggable Cards
       </Typography>
 
-      {todos.columnOrder.map((columnId) => {
-        const column = todos.columns[columnId];
-        const tasks = column.taskIds.map((taskId) => todos.tasks[taskId]);
+      <DragDropContext onDragEnd={onDargEnd}>
+        {todos.columnOrder.map((columnId) => {
+          const column = todos.columns[columnId];
+          const tasks = column.taskIds.map((taskId) => todos.tasks[taskId]);
 
-        return <Column key={column.id} column={column} tasks={tasks} />;
-      })}
+          return <Column key={column.id} column={column} tasks={tasks} />;
+        })}
+      </DragDropContext>
     </Layout>
   );
 }

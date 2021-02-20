@@ -1,25 +1,39 @@
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
+import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { ReactElement } from "react";
+import { Draggable, resetServerContext } from "react-beautiful-dnd";
 
 import { ITask } from "@@/interfaces/draggable";
 
 interface Props {
   task: ITask;
+  index: number;
 }
 
 const useStyles = makeStyles(() => ({
-  root: { marginBottom: "0.5rem" },
-  content: { paddingBottom: "1rem" },
+  paper: {
+    marginBottom: "0.5rem",
+    padding: "1rem",
+  },
 }));
 
-export default function Task({ task }: Props): ReactElement {
+resetServerContext();
+
+export default function Task({ task, index }: Props): ReactElement {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
-      <CardContent className={classes.content}>{task.content}</CardContent>
-    </Card>
+    <Draggable draggableId={task.id} index={index}>
+      {(provided) => (
+        <Paper
+          className={classes.paper}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
+        >
+          {task.content}
+        </Paper>
+      )}
+    </Draggable>
   );
 }
