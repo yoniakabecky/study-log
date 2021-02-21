@@ -12,12 +12,40 @@ interface Props {
   todos: ITodoData;
 }
 
-export default function draggable({ todos = initData }: Props): ReactElement {
+export default function draggable({
+  todos: data = initData,
+}: Props): ReactElement {
   const pathname = useRouter()?.pathname;
+  const [todos, setTodos] = React.useState(data);
 
-  const onDargEnd = (result: DropResult) => {
-    console.log(result);
-    // TODO: reorder column
+  const onDargEnd = ({ destination, source, draggableId }: DropResult) => {
+    if (!destination) return;
+
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    )
+      return;
+
+    const column = todos.columns[source.droppableId];
+    const newTaskIds = Array.from(column.taskIds);
+    newTaskIds.splice(source.index, 1);
+    newTaskIds.splice(destination.index, 0, draggableId);
+
+    const newColumn = {
+      ...column,
+      taskIds: newTaskIds,
+    };
+
+    const newTodos = {
+      ...todos,
+      columns: {
+        ...todos.columns,
+        [newColumn.id]: newColumn,
+      },
+    };
+
+    setTodos(newTodos);
   };
 
   return (

@@ -1,7 +1,7 @@
-import Paper from "@material-ui/core/Paper";
-import { makeStyles } from "@material-ui/core/styles";
+import DragIndicatorIcon from "@material-ui/icons/DragIndicator";
 import React, { ReactElement } from "react";
 import { Draggable, resetServerContext } from "react-beautiful-dnd";
+import styled from "styled-components";
 
 import { ITask } from "@@/interfaces/draggable";
 
@@ -10,30 +10,39 @@ interface Props {
   index: number;
 }
 
-const useStyles = makeStyles(() => ({
-  paper: {
-    marginBottom: "0.5rem",
-    padding: "1rem",
-  },
-}));
-
 resetServerContext();
 
 export default function Task({ task, index }: Props): ReactElement {
-  const classes = useStyles();
-
   return (
     <Draggable draggableId={task.id} index={index}>
-      {(provided) => (
+      {(provided, snapshot) => (
         <Paper
-          className={classes.paper}
           {...provided.draggableProps}
-          {...provided.dragHandleProps}
           ref={provided.innerRef}
+          isDragging={snapshot.isDragging}
         >
+          <IconWrapper {...provided.dragHandleProps}>
+            <DragIndicatorIcon />
+          </IconWrapper>
+
           {task.content}
         </Paper>
       )}
     </Draggable>
   );
 }
+
+const Paper = styled.div<{ isDragging: boolean }>`
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+  transition: border-color 0.2s ease;
+  background-color: ${(props) => (props.isDragging ? "#4b4663" : "#616161")};
+  padding: 0.5rem;
+`;
+
+const IconWrapper = styled.span`
+  margin-right: 0.5rem;
+  height: 24px;
+`;
