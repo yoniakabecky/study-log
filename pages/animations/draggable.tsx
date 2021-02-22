@@ -7,6 +7,7 @@ import Column from "@@/components/DraggablePage/Column";
 import Layout from "@@/components/Layout";
 import LinkedBreadcrumbs from "@@/components/LinkedBreadcrumbs";
 import { ITodoData } from "@@/interfaces/draggable";
+import styled from "styled-components";
 
 interface Props {
   todos: ITodoData;
@@ -27,21 +28,54 @@ export default function draggable({
     )
       return;
 
-    const column = todos.columns[source.droppableId];
-    const newTaskIds = Array.from(column.taskIds);
-    newTaskIds.splice(source.index, 1);
-    newTaskIds.splice(destination.index, 0, draggableId);
+    const startColumn = todos.columns[source.droppableId];
+    const finishColumn = todos.columns[destination.droppableId];
 
-    const newColumn = {
-      ...column,
-      taskIds: newTaskIds,
+    if (startColumn === finishColumn) {
+      const newTaskIds = Array.from(startColumn.taskIds);
+      newTaskIds.splice(source.index, 1);
+      newTaskIds.splice(destination.index, 0, draggableId);
+
+      const newColumn = {
+        ...startColumn,
+        taskIds: newTaskIds,
+      };
+
+      const newTodos = {
+        ...todos,
+        columns: {
+          ...todos.columns,
+          [newColumn.id]: newColumn,
+        },
+      };
+
+      setTodos(newTodos);
+      return;
+    }
+
+    // moving from one list to another
+    const startTaskIds = Array.from(startColumn.taskIds);
+    startTaskIds.splice(source.index, 1);
+
+    const newStartColumn = {
+      ...startColumn,
+      taskIds: startTaskIds,
+    };
+
+    const finishTaskIds = Array.from(finishColumn.taskIds);
+    finishTaskIds.splice(destination.index, 0, draggableId);
+
+    const newFinishColumn = {
+      ...finishColumn,
+      taskIds: finishTaskIds,
     };
 
     const newTodos = {
       ...todos,
       columns: {
         ...todos.columns,
-        [newColumn.id]: newColumn,
+        [newStartColumn.id]: newStartColumn,
+        [newFinishColumn.id]: newFinishColumn,
       },
     };
 
@@ -56,17 +90,23 @@ export default function draggable({
         Draggable Cards
       </Typography>
 
-      <DragDropContext onDragEnd={onDargEnd}>
-        {todos.columnOrder.map((columnId) => {
-          const column = todos.columns[columnId];
-          const tasks = column.taskIds.map((taskId) => todos.tasks[taskId]);
+      <Container>
+        <DragDropContext onDragEnd={onDargEnd}>
+          {todos.columnOrder.map((columnId) => {
+            const column = todos.columns[columnId];
+            const tasks = column.taskIds.map((taskId) => todos.tasks[taskId]);
 
-          return <Column key={column.id} column={column} tasks={tasks} />;
-        })}
-      </DragDropContext>
+            return <Column key={column.id} column={column} tasks={tasks} />;
+          })}
+        </DragDropContext>
+      </Container>
     </Layout>
   );
 }
+
+const Container = styled.div`
+  display: flex;
+`;
 
 const initData = {
   tasks: {
@@ -81,6 +121,16 @@ const initData = {
       title: "To do",
       taskIds: ["task-1", "task-2", "task-3", "task-4"],
     },
+    "column-2": {
+      id: "column-2",
+      title: "In progress",
+      taskIds: [],
+    },
+    "column-3": {
+      id: "column-3",
+      title: "Done",
+      taskIds: [],
+    },
   },
-  columnOrder: ["column-1"],
+  columnOrder: ["column-1", "column-2", "column-3"],
 };

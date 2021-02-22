@@ -14,6 +14,10 @@ interface Props {
 
 const useStyles = makeStyles(() => ({
   title: { marginBottom: "1rem" },
+  taskList: {
+    flexGrow: 1,
+    minHeight: 100,
+  },
 }));
 
 export default function Column({ column, tasks }: Props): ReactElement {
@@ -27,7 +31,11 @@ export default function Column({ column, tasks }: Props): ReactElement {
             {column.title}
           </Typography>
 
-          <div ref={provided.innerRef} {...provided.droppableProps}>
+          <div
+            className={classes.taskList}
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+          >
             {tasks.map((task, index) => (
               <Task key={task.id} task={task} index={index} />
             ))}
@@ -40,10 +48,15 @@ export default function Column({ column, tasks }: Props): ReactElement {
 }
 
 const ColumnWrapper = styled.div<{ isDraggingOver: boolean }>`
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.2s ease;
   margin: 0.5rem;
   border: 2px solid lightgray;
-  transition: border-color 0.2s ease;
   border-color: ${(props) => props.isDraggingOver && "#8e24aa"};
   border-radius: 5px;
   padding: 0.5rem 1rem;
+  background-color: #444444;
+  width: 30vw;
+  min-height: 20rem;
 `;
