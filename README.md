@@ -36,6 +36,9 @@ This is a project to keep my study organized.
     - [ ] ?
 - Testing
   - [ ] Jest
+- Animation
+  - [ ] Drag and Drop
+  - [ ]  
 
 ## Refs 
 
