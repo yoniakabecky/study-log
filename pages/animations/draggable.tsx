@@ -1,17 +1,24 @@
 import Typography from "@material-ui/core/Typography";
 import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
-import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import {
+  DragDropContext,
+  DropResult,
+  resetServerContext,
+} from "react-beautiful-dnd";
+import styled from "styled-components";
 
 import Column from "@@/components/DraggablePage/Column";
+import Memo from "@@/components/DraggablePage/Memo";
 import Layout from "@@/components/Layout";
 import LinkedBreadcrumbs from "@@/components/LinkedBreadcrumbs";
 import { ITodoData } from "@@/interfaces/draggable";
-import styled from "styled-components";
 
 interface Props {
   todos: ITodoData;
 }
+
+resetServerContext();
 
 export default function draggable({
   todos: data = initData,
@@ -89,6 +96,8 @@ export default function draggable({
       <Typography variant="h2" component="h1" gutterBottom>
         Draggable Cards
       </Typography>
+
+      <Memo />
 
       <Container>
         <DragDropContext onDragEnd={onDargEnd}>

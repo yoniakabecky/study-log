@@ -5,7 +5,7 @@ import TreeItem from "@material-ui/lab/TreeItem";
 import React, { ReactElement } from "react";
 
 import Link from "@@/components/NonDecorationLink";
-import { BUBBLE, SELECTION } from "@@/routes";
+import { BUBBLE, SELECTION, DRAGGABLE } from "@@/routes";
 
 interface Props {}
 
@@ -24,6 +24,12 @@ export default function ContentNavigator({}: Props): ReactElement {
             <TreeItem nodeId="4" label="Selection Sort" />
           </Link>
         </TreeItem>
+      </TreeItem>
+
+      <TreeItem nodeId="5" label="Animation">
+        <Link href={DRAGGABLE}>
+          <TreeItem nodeId="6" label="Draggable" />
+        </Link>
       </TreeItem>
     </TreeView>
   );

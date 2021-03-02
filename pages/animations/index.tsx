@@ -5,8 +5,6 @@ import React, { ReactElement } from "react";
 import Layout from "@@/components/Layout";
 import LinkedBreadcrumbs from "@@/components/LinkedBreadcrumbs";
 
-interface Props {}
-
 export default function animation({}: Props): ReactElement {
   const pathname = useRouter()?.pathname;
 

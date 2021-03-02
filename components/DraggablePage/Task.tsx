@@ -1,6 +1,7 @@
 import DragIndicatorIcon from "@material-ui/icons/DragIndicator";
+import { Theme, useTheme } from "@material-ui/core/styles";
 import React, { ReactElement } from "react";
-import { Draggable, resetServerContext } from "react-beautiful-dnd";
+import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
 
 import { ITask } from "@@/interfaces/draggable";
@@ -10,9 +11,9 @@ interface Props {
   index: number;
 }
 
-resetServerContext();
-
 export default function Task({ task, index }: Props): ReactElement {
+  const theme = useTheme();
+
   return (
     <Draggable draggableId={task.id} index={index}>
       {(provided, snapshot) => (
@@ -20,6 +21,7 @@ export default function Task({ task, index }: Props): ReactElement {
           {...provided.draggableProps}
           ref={provided.innerRef}
           isDragging={snapshot.isDragging}
+          theme={theme}
         >
           <IconWrapper {...provided.dragHandleProps}>
             <DragIndicatorIcon />
@@ -32,13 +34,14 @@ export default function Task({ task, index }: Props): ReactElement {
   );
 }
 
-const Paper = styled.div<{ isDragging: boolean }>`
+const Paper = styled.div<{ theme: Theme; isDragging: boolean }>`
   display: flex;
   align-items: center;
   margin-bottom: 0.5rem;
   border-radius: 5px;
   transition: border-color 0.2s ease;
-  background-color: ${(props) => (props.isDragging ? "#4b4663" : "#616161")};
+  background-color: ${({ theme, isDragging }) =>
+    isDragging ? theme.palette.secondary.dark : theme.palette.primary.dark};
   padding: 0.5rem;
 `;
 

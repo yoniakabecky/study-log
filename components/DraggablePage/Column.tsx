@@ -1,5 +1,5 @@
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, Theme, useTheme } from "@material-ui/core/styles";
 import React, { ReactElement } from "react";
 import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
@@ -12,7 +12,7 @@ interface Props {
   tasks: ITask[];
 }
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   title: { marginBottom: "1rem" },
   taskList: {
     flexGrow: 1,
@@ -22,11 +22,12 @@ const useStyles = makeStyles(() => ({
 
 export default function Column({ column, tasks }: Props): ReactElement {
   const classes = useStyles();
+  const theme = useTheme();
 
   return (
     <Droppable droppableId={column.id}>
       {(provided, snapshot) => (
-        <ColumnWrapper isDraggingOver={snapshot.isDraggingOver}>
+        <ColumnWrapper isDraggingOver={snapshot.isDraggingOver} theme={theme}>
           <Typography variant="h4" className={classes.title}>
             {column.title}
           </Typography>
@@ -47,16 +48,17 @@ export default function Column({ column, tasks }: Props): ReactElement {
   );
 }
 
-const ColumnWrapper = styled.div<{ isDraggingOver: boolean }>`
+const ColumnWrapper = styled.div<{ theme: Theme; isDraggingOver: boolean }>`
   display: flex;
   flex-direction: column;
   transition: border-color 0.2s ease;
   margin: 0.5rem;
   border: 2px solid lightgray;
-  border-color: ${(props) => props.isDraggingOver && "#8e24aa"};
+  border-color: ${(props) =>
+    props.isDraggingOver && props.theme.palette.secondary.light};
+  background-color: ${({ theme }) => theme.palette.primary.main};
   border-radius: 5px;
   padding: 0.5rem 1rem;
-  background-color: #444444;
   width: 30vw;
   min-height: 20rem;
 `;
