@@ -12,7 +12,7 @@ interface Props {
   tasks: ITask[];
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   title: { marginBottom: "1rem" },
   taskList: {
     flexGrow: 1,
